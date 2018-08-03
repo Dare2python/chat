@@ -3,8 +3,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertType } from './../../enums/alert-type.enum';
 import { Alert } from './../../classes/alert';
-// import { AuthService } from '../../services/auth.service';
-// import { LoadingService } from './../../servies/loading.service';
+import { AuthService } from '../../services/auth.service';
+import { LoadingService } from './../../services/loading.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AlertService } from './../../services/alert.service';
 
@@ -21,8 +21,8 @@ export class SignupComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private alertService: AlertService,
-    // private auth: AuthService,
-    // private loadingService: LoadingService,
+    private auth: AuthService,
+    private loadingService: LoadingService,
     private router: Router
   ) {
     this.createForm();
@@ -46,14 +46,14 @@ export class SignupComponent implements OnInit, OnDestroy {
       const {firstName, lastName, email, password} = this.signupForm.value;
 
       // TODO call the auth service
-      // this.subscriptions.push(
-      //   this.auth.signup(firstName, lastName, email, password).subscribe(success => {
-      //     if (success) {
-      //       this.router.navigate(['/chat']);
-      //     }
-      //     this.loadingService.isLoading.next(false);
-      //   })
-      // );
+      this.subscriptions.push(
+        this.auth.signup(firstName, lastName, email, password).subscribe(success => {
+          if (success) {
+            this.router.navigate(['/chat']);
+          }
+          this.loadingService.isLoading.next(false);
+        })
+      );
     } else {
       const failedSignedAlert = new Alert('Please enter a valid name, email and password, try again.', AlertType.Danger);
       this.alertService.alerts.next(failedSignedAlert);

@@ -8,7 +8,7 @@ import { LoadingModule } from 'ngx-loading';
 
 // Services
 import { AlertService } from './services/alert.service';
-// import { AuthService } from './services/auth.service';
+import { AuthService } from './services/auth.service';
 import { LoadingService } from './services/loading.service';
 
 // Components
@@ -47,7 +47,8 @@ import { ChatroomWindowComponent } from './pages/chat/components/chatroom-window
   ],
   providers: [
     AlertService,
-    LoadingService
+    LoadingService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

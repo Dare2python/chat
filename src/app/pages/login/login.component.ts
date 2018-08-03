@@ -6,7 +6,7 @@ import { Alert } from './../../classes/alert';
 import { AlertService } from './../../services/alert.service';
 import { Subscription } from 'rxjs/Subscription';
 import { LoadingService } from './../../services/loading.service';
-// import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private alertService: AlertService,
     private loadingService: LoadingService,
-    // private auth: AuthService,
+    private auth: AuthService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -48,17 +48,17 @@ export class LoginComponent implements OnInit, OnDestroy {
       const {email, password} = this.loginForm.value;
 
       // TODO call the auth service
-      // this.subscriptions.push(
-      //   this.auth.login(email, password).subscribe(success => {
-      //     if (success) {
-      //       this.router.navigateByUrl(this.returnUrl);
-      //     }
-      //     this.loadingService.isLoading.next(false);
-      //   })
-      // );
-      setTimeout(()  => {
-        this.loadingService.isLoading.next(false);
-      }, 2000);
+      this.subscriptions.push(
+        this.auth.login(email, password).subscribe(success => {
+          if (success) {
+            this.router.navigateByUrl(this.returnUrl);
+          }
+          this.loadingService.isLoading.next(false);
+        })
+      );
+      // setTimeout(()  => {
+      //   this.loadingService.isLoading.next(false);
+      // }, 2000);
     } else {
       const failedLoginAlert = new Alert('Your email or password were inavalid, try again.', AlertType.Danger);
       this.loadingService.isLoading.next(false);
