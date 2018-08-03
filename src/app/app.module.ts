@@ -11,6 +11,8 @@ import { AlertService } from './services/alert.service';
 import { AuthService } from './services/auth.service';
 import { LoadingService } from './services/loading.service';
 
+import { AuthGuard } from './guards/auth.guard';
+
 // Components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -48,7 +50,8 @@ import { ChatroomWindowComponent } from './pages/chat/components/chatroom-window
   providers: [
     AlertService,
     LoadingService,
-    AuthService
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
