@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Alert } from './classes/alert';
 import { AlertService } from './services/alert.service';
+import { LoadingService } from './services/loading.service';
 
 
 @Component({
@@ -15,8 +16,8 @@ export class AppComponent implements OnInit, OnDestroy {
   public loading = false;
 
   constructor(
-    private alertService: AlertService    // ,
-    // private loadingService: LoadingService
+    private alertService: AlertService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit() {
@@ -26,11 +27,11 @@ export class AppComponent implements OnInit, OnDestroy {
       })
     );
 
-    // this.subscriptions.push(
-    //   this.loadingService.isLoading.subscribe(isLoading => {
-    //     this.loading = isLoading;
-    //   })
-    // );
+    this.subscriptions.push(
+      this.loadingService.isLoading.subscribe(isLoading => {
+        this.loading = isLoading;
+      })
+    );
 
   }
 

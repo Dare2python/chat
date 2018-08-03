@@ -5,7 +5,7 @@ import { AlertType } from './../../enums/alert-type.enum';
 import { Alert } from './../../classes/alert';
 import { AlertService } from './../../services/alert.service';
 import { Subscription } from 'rxjs/Subscription';
-// import { LoadingService } from './../../servies/loading.service';
+import { LoadingService } from './../../services/loading.service';
 // import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private alertService: AlertService,
-    // private loadingService: LoadingService,
+    private loadingService: LoadingService,
     // private auth: AuthService,
     private router: Router,
     private route: ActivatedRoute
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public submit(): void {
 
     if (this.loginForm.valid) {
-      // this.loadingService.isLoading.next(true);
+      this.loadingService.isLoading.next(true);
       const {email, password} = this.loginForm.value;
 
       // TODO call the auth service
@@ -56,9 +56,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       //     this.loadingService.isLoading.next(false);
       //   })
       // );
+      setTimeout(()  => {
+        this.loadingService.isLoading.next(false);
+      }, 2000);
     } else {
       const failedLoginAlert = new Alert('Your email or password were inavalid, try again.', AlertType.Danger);
-      // this.loadingService.isLoading.next(false);
+      this.loadingService.isLoading.next(false);
       this.alertService.alerts.next(failedLoginAlert);
     }
   }

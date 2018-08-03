@@ -4,7 +4,14 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 // Modules
 import { AlertModule } from 'ngx-bootstrap';
+import { LoadingModule } from 'ngx-loading';
 
+// Services
+import { AlertService } from './services/alert.service';
+// import { AuthService } from './services/auth.service';
+import { LoadingService } from './services/loading.service';
+
+// Components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -16,7 +23,6 @@ import { ChatMessageComponent } from './pages/chat/components/chat-message/chat-
 import { ChatroomListComponent } from './pages/chat/components/chatroom-list/chatroom-list.component';
 import { ChatroomTitleBarComponent } from './pages/chat/components/chatroom-title-bar/chatroom-title-bar.component';
 import { ChatroomWindowComponent } from './pages/chat/components/chatroom-window/chatroom-window.component';
-import { AlertService } from './services/alert.service';
 
 @NgModule({
   declarations: [
@@ -36,10 +42,12 @@ import { AlertService } from './services/alert.service';
     AppRoutingModule,
     AlertModule.forRoot(),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    LoadingModule
   ],
   providers: [
-    AlertService
+    AlertService,
+    LoadingService
   ],
   bootstrap: [AppComponent]
 })
