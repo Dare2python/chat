@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       // TODO call the auth service
       this.subscriptions.push(
         this.auth.login(email, password).subscribe(success => {
+          console.log('Login', success);
           if (success) {
             this.router.navigateByUrl(this.returnUrl);
           }
